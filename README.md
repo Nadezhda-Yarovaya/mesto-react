@@ -1,7 +1,4 @@
-# Getting Started with Create React App
+# 10-проектная работа Я.Практикум
+первая работа на React, использованы компоненты и хуки.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## GH-pages
-
-https://nadezhda-yarovaya.github.io/mesto-react/
