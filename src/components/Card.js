@@ -13,7 +13,7 @@ const Card = (props) => {
         aria-label="Удалить место"
         className="elements__delete"
       ></button>
-      <img className="elements__image-btn" src={props.card.cardLink} onClick={handleClick} />
+      <img className="elements__image-btn" src={props.card.cardLink} onClick={handleClick} alt={props.card.cardTitle}/>
       <div className="elements__title-container">
         <h2 className="elements__title">{props.card.cardTitle}</h2>
         <div className="elements__like-cont">

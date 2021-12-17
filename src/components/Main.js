@@ -88,8 +88,8 @@ const Main = (props) => {
         ></button>
       </section>
       <section className="elements main__elements-section">
-        <ul className="elements__list">{cards.map((card, i) => (
-          <li className="elements__element" key={i}>
+        <ul className="elements__list">{cards.map((card) => (
+          <li className="elements__element" key={card.cardId}>
             <Card
               card={card}
               onCardClick={props.onCardClickMain}

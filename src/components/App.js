@@ -43,7 +43,7 @@ function App() {
           <Main onEditProfile={handleEditProfileClick} onEditAvatar={handleEditAvatarClick} onAddPlace={handleAddPlaceClick} onCardClickMain={handleCardClick} />
           <Footer />
           <ImagePopup card={selectedCard} isOpen={isPopupImageOpen} onClose={closeAllPopups} />
-          <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+          <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText="Сохранить">
 
             <label className="popup__label">
               <section className="popup__section">
@@ -76,10 +76,10 @@ function App() {
                 <span className="popup__input-error job-input-error"></span>
               </section>
             </label>
-            <input type="submit" className="popup__submit" value="Сохранить" />
+            
           </PopupWithForm>
 
-          <PopupWithForm name="new-place" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} >
+          <PopupWithForm name="new-place" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText="Создать">
 
             <label className="popup__label">
               <section className="popup__section">
@@ -108,27 +108,15 @@ function App() {
                 />
                 <span className="popup__input-error url-input-error"></span>
               </section>
-              <input type="submit" className="popup__submit" value="Создать" />
             </label>
-            <button
-              type="button"
-              className="popup__close-btn"
-              aria-label="закрыть окно"
-            ></button>
           </PopupWithForm>
 
-          <PopupWithForm name="type_delete" title="Вы уверены?">
+          <PopupWithForm name="type_delete" title="Вы уверены?" buttonText="Да">
             <label className="popup__label">
-              <input type="submit" className="popup__submit" value="Да" />
             </label>
-            <button
-              type="button"
-              className="popup__close-btn popup__close-img"
-              aria-label="закрыть окно"
-            ></button>
           </PopupWithForm>
 
-          <PopupWithForm name="upd-avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+          <PopupWithForm name="upd-avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText="Сохранить">
             <label className="popup__label">
               <section className="popup__section">
                 <input
@@ -142,16 +130,9 @@ function App() {
                   maxLength="200"
                 />
                 <span className="popup__input-error avatarupdateinput-error">
-
                 </span>
               </section>
-              <input type="submit" className="popup__submit" value="Сохранить" />
             </label>
-            <button
-              type="button"
-              className="popup__close-btn popup__close-img"
-              aria-label="закрыть окно"
-            ></button>
           </PopupWithForm>
 
         </div>
