@@ -1,27 +1,23 @@
 import React from 'react';
-import validationConfig from '../utils/utils.js';
-import FormValidator from '../utils/validation.js';
 
 const PopupWithForm = (props) => {
-    /*validations*/
-/*const validation = new FormValidator(validationConfig, props.name);
-validation.enableValidation();*/
+  
+  const submitButClassName = (
+    `popup__submit ${!props.validOrNotForm && 'popup__submit_invalid'}`
+  );
 
-const submitButClassName = (
-  `popup__submit ${!props.validOrNotForm && 'popup__submit_invalid'}`
-);
+  const formClassName = (
+    `popup__form ${props.name === 'delete' && 'popup__form-delete'}`
+  );
 
-const formClassName = (
-  `popup__form ${props.name === 'delete' && 'popup__form-delete'}`
-);
   return (
     <>
       <div className={`popup popup_type_${props.name} ${props.isOpen && ('popup_opened')}`}>
         <div className="popup__container">
-          <form className={formClassName} name={`${props.name}`} onSubmit={props.onSubmit}  noValidate>
+          <form className={formClassName} name={`${props.name}`} onSubmit={props.onSubmit} noValidate>
             <p className="popup__paragraph">{props.title}</p>
             {props.children}
-            <input type="submit" className={submitButClassName} value={props.saveButton} disabled={!props.validOrNotForm}/>
+            <input type="submit" className={submitButClassName} value={props.saveButton} disabled={!props.validOrNotForm} />
           </form>
           <button
             type="button"

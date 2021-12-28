@@ -15,4 +15,5 @@ const validationConfig = {
   inactiveButtonClass: "popup__submit_invalid",
   inputErrorClass: "popup__input_state_invalid",
 };
+
 export default validationConfig;

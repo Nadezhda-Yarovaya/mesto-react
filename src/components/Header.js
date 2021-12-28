@@ -1,4 +1,5 @@
 import mainLogo from '../images/mainlogo.svg';
+
 const Header = () => {
     return (
         <header className="header page__header">
@@ -8,10 +9,8 @@ const Header = () => {
             className="header__logo"
           />
         </a>
-      </header>
-     
-
+      </header>  
     );
-
 }
+
 export default Header;

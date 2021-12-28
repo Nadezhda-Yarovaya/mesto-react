@@ -1,16 +1,13 @@
 
-import avatar from '../images/avatar.png';
 import editImg from '../images/edit-avatar.svg';
 import React from 'react';
-import { useState, useEffect,useContext } from 'react';
-import api from '../utils/api.js';
+import { useContext } from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Main = (props) => {
   const context = useContext(CurrentUserContext);
-  //console.log('context main tops: ' + Object.entries(context)); /*id, name, job, avatar */
- 
+
   return (
     <main className="main page__main">
       <section className="profile main__profile-section">
@@ -42,7 +39,7 @@ const Main = (props) => {
       </section>
       <section className="elements main__elements-section">
         <ul className="elements__list">{props.allCards.map((card) => (
-          <li className="elements__element" key={card._id}> 
+          <li className="elements__element" key={card._id}>
             <Card
               card={card}
               onCardClick={props.onCardClickMain}
