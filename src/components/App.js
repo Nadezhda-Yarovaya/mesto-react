@@ -81,16 +81,15 @@ const [isEditProfilePopupOpen, editProfilePopup] = useState(false);
   }
 
   function handleUpdateUser(newUser) {
-    //console.log(newUser.name + newUser.job);
     api.saveProfileData(newUser.name, newUser.job)
       .then(result => {
-        //console.log('saved data' + Object.entries(result));  
-        setCurrentUser({
-          id: currentUser._id,
-          name: newUser.name,
-          job: newUser.job,
-          avatar: currentUser.avatar
-        });
+        const resultProfileData = {
+          id: result._id,
+          name: result.name,
+          job: result.about,
+          avatar: result.avatar
+        };
+        setCurrentUser(resultProfileData);
       })
       .catch(err => console.log(err))
       .finally(res => {
@@ -110,12 +109,13 @@ const [isEditProfilePopupOpen, editProfilePopup] = useState(false);
     api.saveAvatarUrl(newUser.avatar)
       .then(result => {
         //console.log('saved data AVATAR' + Object.entries(result));
-        setCurrentUser({
-          id: currentUser._id,
-          name: currentUser.name,
-          job: currentUser.job,
-          avatar: newUser.avatar
-        });
+        const resultProfileData = {
+          id: result._id,
+          name: result.name,
+          job: result.about,
+          avatar: result.avatar
+        };
+        setCurrentUser(resultProfileData);
        
       })
       .catch(err => console.log(err))
@@ -143,6 +143,7 @@ const [isEditProfilePopupOpen, editProfilePopup] = useState(false);
     .finally(res=> {
       setCards((state) => state.filter( /*оставить только те что с условием */
         (c) =>   c._id !== card._id && c ));
+        setSaveButDelete('Да');
         closeAllPopups();
     });
 
@@ -207,7 +208,7 @@ const [isEditProfilePopupOpen, editProfilePopup] = useState(false);
       })
       .catch(err => console.log(err))
       .finally(res => {
-        updateSaveButAvatar('Создать');
+        updateSaveButNewPlace('Создать');
         closeAllPopups();
       });
   }

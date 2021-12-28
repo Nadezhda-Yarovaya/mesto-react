@@ -5,6 +5,10 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 const EditProfilePopup = (props) => {
     const currentUser = useContext(CurrentUserContext);
+    const [inputValidName, setInputValidName] =useState(true);
+    const [inputValidJob, setInputValidDesc] =useState(true);
+    const [validMessageName, setValidMessageName] = useState('');
+    const [validMessageJob, setValidMessageJob] = useState('');
     //console.log('all users: ' + Object.entries(currentUser));
     //Внутри EditProfilePopup добавьте стейт-переменные name и description и привяжите их к полям ввода, сделав их управляемыми. 
     const [name, setName] = useState('');
@@ -12,16 +16,27 @@ const EditProfilePopup = (props) => {
 
     function changeName(e) {
         setName(e.target.value);
+        setInputValidName(e.target.validity.valid);
+      //console.log('valid: ' + e.target.validationMessage);
+      setValidMessageName(e.target.validationMessage);
     }
     
     function changeDesc(e) {
-        setDescription(e.target.value);
+        setDescription(e.target.value);        
+        setInputValidDesc(e.target.validity.valid);
+        setValidMessageJob(e.target.validationMessage);
+    }
+
+    function setData(userName, userJob) {
+      
+      setName(userName);
+      setDescription(userJob);
     }
 
     useEffect(() => {
-        setName(currentUser.name);
-        setDescription(currentUser.job);
+      setData(currentUser.name, currentUser.job);
       }, [currentUser]); 
+
 
 
       function handleSubmit(e) {
@@ -33,15 +48,31 @@ const EditProfilePopup = (props) => {
         });
       }
 
+      const validityClassNameOnName = (
+        `popup__input popup__input_type_name ${!inputValidName && 'popup__input_state_invalid'}`
+      );
+
+      const validityClassNameOnJob = (
+        `popup__input popup__input_type_job ${!inputValidJob && 'popup__input_state_invalid'}`
+      );
+
+      const formValidity = (
+        inputValidName && inputValidJob
+      );
+      /*
+      console.log('edit name valid: ' + inputValidName);
+      console.log('edit job valid: ' + inputValidJob);
+      console.log('formvalidity: ' + formValidity);*/
+
   return (
-      <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit}>
+      <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} validOrNotForm={formValidity}>
 <label className="popup__label">
   <section className="popup__section">
     <input
       type="text"
-      className="popup__input popup__input_type_name"
+      className={validityClassNameOnName}
       placeholder="ФИО"
-      value={name || ''}
+      value={props.isOpen ? (name) : ''}
       onChange={changeName}
       name="profileName"
       required
@@ -50,13 +81,13 @@ const EditProfilePopup = (props) => {
       id="name-input"
       autoComplete="off"
     />
-    <span className="popup__input-error name-input-error"></span>
+    <span className="popup__input-error name-input-error">{validMessageName}</span>
   </section>
 
   <section className="popup__section">
     <input
       type="text"
-      className="popup__input popup__input_type_job"
+      className={validityClassNameOnJob}
       placeholder="должность"
       name="job"
       value={description || ''}
@@ -67,7 +98,7 @@ const EditProfilePopup = (props) => {
       id="job-input"
       autoComplete="off"
     />
-    <span className="popup__input-error job-input-error"></span>
+    <span className="popup__input-error job-input-error">{validMessageJob}</span>
   </section>
 </label>
 

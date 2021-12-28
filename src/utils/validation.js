@@ -2,8 +2,9 @@
 import { Component } from 'react';
 
 class FormValidator extends Component {
-    constructor() {
-      super(); /* полностью переписывать, лучше по функциям 
+    constructor(props) {
+      super(props); /* полностью переписывать, лучше по функциям 
+      this.state = {form: props.name}
       
       this.state
     (this._formSelector = config.formSelector),
