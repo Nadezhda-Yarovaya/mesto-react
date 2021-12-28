@@ -62,7 +62,7 @@ class Api {
   saveAvatarUrl(avatarUrl) {
     return this._saveProfileAll(
       {
-        avatar: avatarUrl.avatarupdate,
+        avatar: avatarUrl,
       },
       `${this._url}/users/me/avatar`
     );
@@ -75,13 +75,18 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  putLikes(cardId) {
+  changeLikeCardStatus(cardId, isLiked) {    
+    if (isLiked) {
+      return this._likes("DELETE", cardId);
+    } else {
+      console.log('false: ' + isLiked);
     return this._likes("PUT", cardId);
+    }
   }
 
-  deleteLikes(cardId) {
+ /* deleteLikes(cardId) {
     return this._likes("DELETE", cardId);
-  }
+  }*/
 }
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",
