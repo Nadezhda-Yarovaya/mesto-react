@@ -28,9 +28,14 @@ const EditAvatarPopup = (props) => {
 
     props.onUpdateAvatar({
       avatar: avatarRef.current.value,
-    });
-    avatarRef.current.value = '';
+    }, handleClear);
   }
+
+  function handleClear() {
+    avatarRef.current.value = '';
+    setValidMessageAvatar('');
+    setInputValidAvatar(false);
+}
 
   return (
     <PopupWithForm name="upd-avatar" title="Обновить аватар" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} validOrNotForm={inputValidAvatar}>

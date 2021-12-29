@@ -25,9 +25,20 @@ const EditProfilePopup = (props) => {
   }
 
   useEffect(() => {
+    handleClear();
     setName(currentUser.name);
     setDescription(currentUser.job);
-  }, [currentUser]);
+
+  }, [currentUser, props.isOpen]);
+ 
+  function handleClear() {
+    setName('');
+    setDescription('');
+    setInputValidName(true);
+    setValidMessageName('');
+    setInputValidDesc(true);
+    setValidMessageJob('');
+}
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -35,7 +46,7 @@ const EditProfilePopup = (props) => {
     props.onUpdateUser({
       name,
       job: description,
-    });
+    }, handleClear);
   }
 
   const validityClassNameOnName = (
@@ -51,7 +62,7 @@ const EditProfilePopup = (props) => {
   );
 
   return (
-    <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} validOrNotForm={formValidity}>
+    <PopupWithForm name={"edit-profile"} title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} validOrNotForm={formValidity}>
       <label className="popup__label">
         <section className="popup__section">
           <input

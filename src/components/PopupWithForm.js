@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PopupWithForm = (props) => {
-  
+
   const submitButClassName = (
     `popup__submit ${!props.validOrNotForm && 'popup__submit_invalid'}`
   );
@@ -9,6 +9,7 @@ const PopupWithForm = (props) => {
   const formClassName = (
     `popup__form ${props.name === 'delete' && 'popup__form-delete'}`
   );
+
 
   return (
     <>

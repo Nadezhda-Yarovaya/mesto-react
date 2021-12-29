@@ -3,26 +3,29 @@ import PopupWithForm from './PopupWithForm';
 import { useState, useRef } from 'react';
 
 const AddPlacePopup = (props) => {
+
+    const [name, setName] = useState('');
+    const [link, setLink] = useState('');
     const [inputValidName, setInputValidName] = useState(false);
     const [inputValidLink, setInputValidLink] = useState(false);
     const [validMessageName, setValidMessageName] = useState('');
     const [validMessageLink, setValidMessageLink] = useState('');
     const [inputNameClass, setInputNameClass] = useState('popup__input popup__input_type_place');
-    const [inputLinkClass, setInputLinkClass] = useState('popup__input popup__input_type_link');    
-    const placeNameRef = useRef('');
-    const placeLinkRef = useRef('');
+    const [inputLinkClass, setInputLinkClass] = useState('popup__input popup__input_type_link');
 
-    function checkValidityName() {
-        const isValid = placeNameRef.current.validity.valid;
+    function checkValidityName(e) {
+        setName(e.target.value);
+        const isValid = e.target.validity.valid;
         setInputValidName(isValid);
-        setValidMessageName(placeNameRef.current.validationMessage);
+        setValidMessageName(e.target.validationMessage);
         setClassName(isValid);
     }
 
-    function checkValidityLink() {
-        const isValid = placeLinkRef.current.validity.valid;
+    function checkValidityLink(e) {
+        setLink(e.target.value);
+        const isValid = e.target.validity.valid;
         setInputValidLink(isValid);
-        setValidMessageLink(placeLinkRef.current.validationMessage);
+        setValidMessageLink(e.target.validationMessage);
         setClassLink(isValid);
     }
 
@@ -44,16 +47,23 @@ const AddPlacePopup = (props) => {
         inputValidName && inputValidLink
     );
 
+    function handleClear() {
+        setName('');
+        setLink('');
+        setInputValidName(false);
+        setInputValidLink(false);
+        setValidMessageName('');
+        setValidMessageLink('');
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
         props.onEditButText('Создание...');
-        props.onAddNewPlace(placeNameRef.current.value, placeLinkRef.current.value);
-        placeNameRef.current.value = '';
-        placeLinkRef.current.value = '';
+        props.onAddNewPlace(name, link, handleClear);
     }
 
     return (
-        <PopupWithForm name="new-place" title="Новое место" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit}
+        <PopupWithForm name="newplace" title="Новое место" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit}
             validOrNotForm={formValidity}>
 
             <label className="popup__label">
@@ -62,8 +72,8 @@ const AddPlacePopup = (props) => {
                         type="text"
                         className={inputNameClass}
                         placeholder="Название Места"
-                        ref={placeNameRef}
-                        onInput={checkValidityName}
+                        value={props.isOpen ? (name || '') : ''}
+                        onChange={checkValidityName}
                         required
                         name="name"
                         id="newplace-input"
@@ -78,8 +88,8 @@ const AddPlacePopup = (props) => {
                         type="url"
                         className={inputLinkClass}
                         placeholder="Ссылка на картинку"
-                        ref={placeLinkRef}
-                        onInput={checkValidityLink}
+                        value={link || ''}
+                        onChange={checkValidityLink}
                         required
                         name="link"
                         id="url-input"

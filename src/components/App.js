@@ -101,7 +101,7 @@ function App() {
     setSaveButDelete(text);
   }
 
-  function handleUpdateUser(newUser) {
+  function handleUpdateUser(newUser, handleClear) {
     api.saveProfileData(newUser.name, newUser.job)
       .then(result => {
         const resultProfileData = {
@@ -110,16 +110,17 @@ function App() {
           job: result.about,
           avatar: result.avatar
         };
-        setCurrentUser(resultProfileData);
+        setCurrentUser(resultProfileData);        
+        handleClear();
+        closeAllPopups();
       })
       .catch(err => console.log(err))
       .finally(res => {
         updateSaveButEdit('Сохранить');
-        closeAllPopups();
       });
   }
 
-  function handleUpdateAvatar(newUser) {
+  function handleUpdateAvatar(newUser, handleClear) {
     api.saveAvatarUrl(newUser.avatar)
       .then(result => {
         const resultProfileData = {
@@ -129,25 +130,25 @@ function App() {
           avatar: result.avatar
         };
         setCurrentUser(resultProfileData);
-
+        handleClear();
+        closeAllPopups();
       })
       .catch(err => console.log(err))
       .finally(res => {
         updateSaveButAvatar('Отправить');
-        closeAllPopups();
       });
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
       .then(res => {
+        closeAllPopups();
       })
       .catch(err => console.log(err))
       .finally(res => {
         setCards((state) => state.filter(
           (c) => c._id !== card._id && c));
         setSaveButDelete('Да');
-        closeAllPopups();
       });
   }
 
@@ -157,7 +158,6 @@ function App() {
       setCards((state) => state.map(
         (c) => c._id === card._id ? result : c)
       );
-
     })
       .catch(err => console.log(err));
   }
@@ -181,21 +181,22 @@ function App() {
       });
   }
 
-  function handleAddPlaceSubmit(cardName, cardLink) {
+
+  function handleAddPlaceSubmit(cardName, cardLink, handleClear) {
     api.postNewCard({
       name: cardName,
       link: cardLink
     })
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([newCard, ...cards]);        
+        handleClear();
+        closeAllPopups();
       })
       .catch(err => console.log(err))
       .finally(res => {
         updateSaveButNewPlace('Создать');
-        closeAllPopups();
       });
   }
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
