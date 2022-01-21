@@ -17,5 +17,8 @@ html, css, js, React.js, использование API, Webpack
 \
 https://nadezhda-yarovaya.github.io/mesto-react/
 
+
+
 **Инструкция по развёртыванию и системные требования**
+\
 Требуются расширения React.js, Webpack v5.66.0
